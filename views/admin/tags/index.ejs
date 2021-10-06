@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+</head>
+<body>        
+        
+        <h1>Minhas tags</h1>
+        <table>
+                <thead>
+                        <tr>
+                                <th>Id</th>
+                                <th>Title</th>
+                                <th>Slug</th>
+                                <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <% tags.forEach(tag => {%>
+                                <tr>
+                                        <th><%= tag.id %></th>
+                                        <th><%= tag.title %></th>
+                                        <th><%= tag.slug %></th>
+                                        <th>
+                                                <form action="/admin/tags/delete" method="POST">
+                                                        <input type="hidden" name="id" value="<%= tag.id %>">
+                                                        <button class="btn delete">Delete</button>
+                                                </form>
+                                                <a href="/admin/tags/edit/<%= tag.id %>">Edit</a>
+                                        </th>
+                                </tr>
+                        <%}) %>  
+                </tbody>
+        </table>
+        <script src="/public/js/scripts.js"></script>
+</body>
+</html>

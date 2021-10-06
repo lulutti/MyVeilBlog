@@ -1,8 +1,11 @@
 const express = require('express');
 const app = express();
 const connection = require('./db/database');
-const TagsController = require('./categories/TagsController');
+const TagsController = require('./tags/TagsController');
 const ArticlesController = require('./articles/ArticlesController')
+
+const Article = require('./articles/Article');
+const Tag = require('./tags/Tag')
 
 //View engine
 app.set('view engine', 'ejs');

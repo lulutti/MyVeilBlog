@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const connection = require('../db/database');
+const Tag = require('../tags/Tag')
 
 const Article = connection.define('articles',{
         title:{
@@ -16,6 +17,11 @@ const Article = connection.define('articles',{
                 allowNull: false,
                 notEmpty: true,
         }
-})
+});
+
+Article.belongsTo(Tag);
+Tag.hasMany(Article);
+
+Article.sync({force: false});
 
 module.exports = Article;
