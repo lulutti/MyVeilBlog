@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+       <meta charset="UTF-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Document</title>
+</head>
+<body>
+       <h1>ola</h1>
+       <form action="/admin/articles/save" method="POST">
+              <input type="text" id="title" name="title" placeholder="Title">
+              <textarea name="body" id="article" cols="30" rows="10"></textarea>
+              <label for="Tags">Tags</label>
+              <select name="tags">
+                            <% tags.forEach((tag) => {%>
+                            
+                            <option value="<%= tag.id %>"><%= tag.title %></option>
+                            <%})%>
+                       
+              </select>
+              <button type="submit">Publish</button>
+       </form>
+       <script src="/tinymce/js/tinymce/tinymce.min.js"></script>
+       <script src="/js/tinymce.js"></script> 
+</body>
+</html>
+
+

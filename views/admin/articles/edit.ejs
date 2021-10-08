@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+</head>
+<body>
+        <%- include('../../parts/navbar'); -%>
+        <form action="/admin/articles/update" method="POST">
+                <input type="text" id="title" name="title" placeholder="New article name" value="<%= article.title %>">
+                <input type="hidden" name="id" value="<%= article.id %>">
+                <button type="submit">Update</button>
+                <textarea name="body" id="article" cols="30" rows="10"><%= article.body %></textarea>
+              <label for="Tags">Tags</label>
+             
+              <button type="submit">Publish</button>
+       </form>
+       <script src="/tinymce/js/tinymce/tinymce.min.js"></script>
+       <script src="/js/tinymce.js"></script> 
+</body>
+</html>

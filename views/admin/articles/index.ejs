@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+</head>
+<body>        
+        
+        <h1>Articles</h1>
+        <table>
+                <thead>
+                        <tr>
+                                <th>Id</th>
+                                <th>Title</th>
+                                <th>Slug</th>
+                                <th>Tag</th>
+                                <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <% articles.forEach(article => {%>
+                                <tr>
+                                        <th><%= article.id %></th>
+                                        <th><%= article.title %></th>
+                                        <th><%= article.slug %></th>
+                                        <th><%= article.tag.title%></th>
+                                        <th>
+                                                <form action="/admin/articles/delete" method="POST">
+                                                        <input type="hidden" name="id" value="<%= article.id %>">
+                                                        <button class="btn delete">Delete</button>
+                                                </form>
+                                                <a href="/admin/articles/edit/<%= article.id %>">Edit</a>
+                                        </th>
+                                </tr>
+                        <%}) %>  
+                </tbody>
+        </table>
+        <script src="/public/js/scripts.js"></script>
+</body>
+</html>

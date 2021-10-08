@@ -1,7 +1,8 @@
 const express = require('express');
 const Tag = require('./Tag');
 const router = express.Router();
-const slugify = require('slugify')
+const slugify = require('slugify');
+const Article = require('../articles/Article');
 
 router.get('/tag', (req, res) => {
         res.send('testando')
@@ -16,7 +17,7 @@ router.post('/admin/tags/save', (req, res) => {
 
         Tag.create({
                 title: tagTitle,
-                slug: slugify(tagTitle)
+                slug: slugify(tagTitle.toLowerCase())
         })
                 .then(() => res.redirect('/admin/tags'))
                 .catch((err) => {
@@ -70,4 +71,30 @@ router.post('/admin/tags/update', (req, res) => {
                 res.redirect('/admin/tags')
         })
 })
+
+router.get('/tags/:slug', (req,res) => {
+        let slug = req.params.slug;
+        Tag.findOne({
+                where: {
+                        slug: slug
+                }
+        }).then((tag) => {
+                if(tag){
+                        Article.findAll({
+                                include: [{model: Tag}],
+                                where: {
+                                        tagId: tag.id
+                                }
+                        }).then((articles) => {
+                                if(articles.length != 0){
+                                        res.render(`tagsFilter`, {articles: articles, tag: tag})
+                                } else {
+                                        res.send('não tem artigos aqui')
+                                }
+                                })
+
+                } else {res.send('não existe essa tag')}
+        })
+})
+
 module.exports = router;

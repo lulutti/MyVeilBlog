@@ -9,9 +9,10 @@
 <body>
         <%- include('../../parts/navbar'); -%>
         <form action="/admin/tags/update" method="POST">
-                <input type="text" id="title" name="title" placeholder="New tag" value="<%= tag.title %>">
+                <input type="text" id="title" name="title" placeholder="<%= tag.title %>">">
                 <input type="hidden" name="id" value="<%= tag.id %>">
                 <button type="submit">Update</button>
+                
         </form>
 </body>
 </html>
