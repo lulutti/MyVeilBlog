@@ -64,4 +64,9 @@ router.post('/admin/users/authenticate', (req, res) => {
 
 })
 
+router.get('/admin/users/logout', (req, res) => {
+       req.session.user = undefined;
+       res.redirect('/');
+})
+
 module.exports = router;
