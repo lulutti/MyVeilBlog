@@ -3,8 +3,9 @@ const router = express.Router();
 const Tag = require('../tags/tag');
 const Article = require('./Article');
 const slugify = require('slugify');
+const auth = require('../middlewares/auth');
 
-router.get('/admin/articles', (req, res) => {
+router.get('/admin/articles', auth, (req, res) => {
         Article.findAll({
                 include: [{model: Tag}]
         }).then(articles => {
@@ -13,13 +14,13 @@ router.get('/admin/articles', (req, res) => {
 
 })
 
-router.get('/admin/articles/new', (req, res) => {
+router.get('/admin/articles/new', auth, (req, res) => {
         Tag.findAll().then(tags => {
                 res.render('admin/articles/new',{tags: tags})
         })
 })
 
-router.post('/admin/articles/save', (req, res) => {
+router.post('/admin/articles/save', auth, (req, res) => {
         const title = req.body.title;
         const body = req.body.body;
         const tag = req.body.tags;
@@ -33,7 +34,7 @@ router.post('/admin/articles/save', (req, res) => {
                
 })
 
-router.post('/admin/articles/delete', (req, res) => {
+router.post('/admin/articles/delete', auth, (req, res) => {
         let idArticle = req.body.id;
         Article.destroy({
                 where: {
@@ -45,7 +46,7 @@ router.post('/admin/articles/delete', (req, res) => {
         )
 })
 
-router.get('/admin/articles/edit/:id', (req, res) => {
+router.get('/admin/articles/edit/:id', auth, (req, res) => {
         let idArticle = req.params.id;
         Article.findByPk(idArticle).then(article => {
                 if(article != undefined){
@@ -56,7 +57,7 @@ router.get('/admin/articles/edit/:id', (req, res) => {
         })
 })
 
-router.post('/admin/articles/update', (req, res) => {
+router.post('/admin/articles/update', auth, (req, res) => {
         let id = req.body.id;
         let newTitle = req.body.title;
         let body = req.body.body;

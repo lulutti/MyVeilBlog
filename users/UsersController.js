@@ -2,17 +2,18 @@ const express = require('express');
 const router = express.Router();
 const User = require('./User');
 const bcrypt = require('bcryptjs');
+const auth = require('../middlewares/auth');
 
-router.get('/admin/users', (req, res) => {
+router.get('/admin/users', auth, (req, res) => {
        
        res.send('usuarios')
 })
 
-router.get('/admin/users/create', (req, res) => {
+router.get('/admin/users/create', auth,(req, res) => {
        res.render('admin/users/create')
 })
 
-router.post('/admin/users/create', async (req, res) => {
+router.post('/admin/users/create', auth, async (req, res) => {
        const email = req.body.email;
        const password = req.body.password;
 
